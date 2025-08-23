@@ -30,7 +30,7 @@ public class FileHandler {
         return builder.toString();
     }
 
-    public void writeFile(String content, String filePath){
+    public static void writeFile(String content, String filePath){
         Path path = Paths.get(filePath);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
