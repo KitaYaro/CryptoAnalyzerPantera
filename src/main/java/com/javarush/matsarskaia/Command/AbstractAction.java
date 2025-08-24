@@ -20,25 +20,32 @@ public abstract class AbstractAction implements Action {
         this.indexMap = new HashMap<>();
     }
     protected abstract int transformIndex(int oldIndex, int key);
-
-    @Override
-    public void execute(String inputFile, String outputFile, int key) {
-        String sourceFile = FileHandler.readFile(inputFile);
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < alphabet.length; i++) {
-            indexMap.put(alphabet[i], i);
-        }
-
-        for (char symbol : sourceFile.toCharArray()) {
-            if (indexMap.containsKey(symbol)) {
-                int oldIndex = indexMap.get(symbol);
+        protected String transformText(String text, int key){
+            StringBuilder result = new StringBuilder();
+        for (char ch : text.toCharArray()) {
+            if (indexMap.containsKey(ch)) {
+                int oldIndex = indexMap.get(ch);
                 int newIndex = transformIndex(oldIndex, key);
                 result.append(alphabet[newIndex]);
             } else {
-                result.append(symbol);
+                result.append(ch);
             }
         }
-        FileHandler.writeFile(result.toString(), outputFile);
+        return result.toString();
+    }
+
+    @Override
+    public void execute(String inputFile, String outputFile, int key) {
+        for (int i = 0; i < alphabet.length; i++) {
+            indexMap.put(alphabet[i], i);
+        }
+        try {
+            String sourceFile = FileHandler.readFile(inputFile);
+            String result = transformText(sourceFile, key);
+
+            FileHandler.writeFile(result, outputFile);
+        } catch (Exception e) {
+            System.err.println("Warning AbstractionAction " + e.getMessage());
+        }
     }
 }
