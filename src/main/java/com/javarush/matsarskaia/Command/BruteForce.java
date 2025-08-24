@@ -28,7 +28,7 @@ public class BruteForce extends AbstractAction {
             for (int j = 0; j < alphabet.length; j++) {
                 String result = transformText(sourceFile, j);
 
-                if (result.contains("на что и")) {
+                if (result.contains("Ну что,")) {
                     FileHandler.writeFile(result, outputFile);
                     break;
                 }

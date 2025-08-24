@@ -13,6 +13,7 @@ public class FileHandler {
     public static final String INPUT_FILE = "E:\\Java MyProject\\CryptoAnalyzerPantera\\text\\text.txt";
     public static final String ENCRYPTED_FILE = "E:\\Java MyProject\\CryptoAnalyzerPantera\\text\\encrypted.txt";
     public static final String DECRYPTED_FILE = "E:\\Java MyProject\\CryptoAnalyzerPantera\\text\\decrypted.txt";
+    public static final String BRUTEFORCE_FILE = "E:\\Java MyProject\\CryptoAnalyzerPantera\\text\\bruteforce.txt";
 
     //метод для чтения из файла
     public static String readFile(String filePath) {
