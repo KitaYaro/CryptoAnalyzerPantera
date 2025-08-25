@@ -23,8 +23,9 @@ public abstract class AbstractAction implements Action {
         protected String transformText(String text, int key){
             StringBuilder result = new StringBuilder();
         for (char ch : text.toCharArray()) {
-            if (indexMap.containsKey(ch)) {
-                int oldIndex = indexMap.get(ch);
+            char loverCh = Character.toLowerCase(ch);
+            if (indexMap.containsKey(loverCh)) {
+                int oldIndex = indexMap.get(loverCh);
                 int newIndex = transformIndex(oldIndex, key);
                 result.append(alphabet[newIndex]);
             } else {

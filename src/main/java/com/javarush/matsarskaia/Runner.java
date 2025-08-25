@@ -1,6 +1,8 @@
 package com.javarush.matsarskaia;
 
-import com.javarush.matsarskaia.Command.Action;
+
+
+import java.util.Scanner;
 
 
 public class Runner {
@@ -10,19 +12,51 @@ public class Runner {
         String decryptFile = FileHandler.DECRYPTED_FILE;
         String bruteFile = FileHandler.BRUTEFORCE_FILE;
 
-        int key = 8;
 
+        Scanner scanner = new Scanner(System.in);
 
-        Action action = ActionType.ENCODE.getAction();
-        action.execute(inputFile,encryptedFile,key);
-        System.out.println("Файл зашифрован с ключом " + key);
+        while (true) {
+            showMenu();
+            int choice = readInt(scanner, "select an item from the menu: ");
 
-        Action action1 = ActionType.DECODE.getAction();
-        action1.execute(encryptedFile,decryptFile,key);
-        System.out.println("Файл расшифрован с ключом " + key);
+            switch (choice) {
+                case 1 -> {
+                    int key = readInt(scanner,"enter key: ");
+                    ActionType.ENCODE.getAction().execute(inputFile, encryptedFile, key);
+                    System.out.println("the file is encrypted with key: " + key);
+                }
 
-        Action bruteForce = ActionType.BRUTEFORCE.getAction();
-        bruteForce.execute(encryptedFile,bruteFile,key);
-        System.out.println("Файл расшифрован ");
+                case 2 -> {
+                    int key1 = readInt(scanner, "enter key: ");
+                    ActionType.DECODE.getAction().execute(encryptedFile, decryptFile, key1);
+                    System.out.println("the file is decrypted with key: " + key1);
+                }
+
+                case 3 -> {
+                    ActionType.BRUTEFORCE.getAction().execute(encryptedFile, bruteFile, 0);
+                    System.out.println("key found, file decrypted ");
+                }
+
+                case 4 -> {
+                    System.out.println("Exit program ");
+                    return;
+                }
+                default -> System.out.println(ConsoleColors.RED + "there is no menu item with this number" + ConsoleColors.RESET);
+            }
+        }
+    }
+    public static void showMenu (){
+        System.out.println(ConsoleColors.GREEN + "1. ENCRYPTED" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "2. DECRYPTED" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "3. BRUTE_FORCE" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "4. EXIT" + ConsoleColors.RESET);
+    }
+    public static int readInt (Scanner scanner, String message){
+        System.out.println(ConsoleColors.BLUE + message + ConsoleColors.RESET);
+        while (!scanner.hasNextInt()){
+            System.out.println(ConsoleColors.RED + "key must be a number!" + ConsoleColors.RESET);
+            scanner.next();
+        }
+        return scanner.nextInt();
     }
 }

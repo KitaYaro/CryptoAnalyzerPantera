@@ -2,12 +2,12 @@ package com.javarush.matsarskaia.Command;
 
 import com.javarush.matsarskaia.FileHandler;
 
-import java.util.Map;
+
 
 public class BruteForce extends AbstractAction {
-    public BruteForce(char[] alphabet, Map<Character, Integer> integerMap) {
-        super(alphabet, integerMap);
-    }
+//    public BruteForce(char[] alphabet, Map<Character, Integer> integerMap) {
+//        super(alphabet, integerMap);
+//    }
 
     public BruteForce() {
         super();
@@ -30,6 +30,7 @@ public class BruteForce extends AbstractAction {
 
                 if (result.contains("Ну что,")) {
                     FileHandler.writeFile(result, outputFile);
+                    System.out.println("key -> " + j);
                     break;
                 }
             }
